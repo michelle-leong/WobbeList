@@ -36,7 +36,7 @@ function Login(props) {
 
   useEffect(() => {
     if (user !== null) {
-      navigate('/home');
+      navigate('/user/home');
     }
   }, [user]);
 

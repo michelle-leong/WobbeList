@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Review from './Review.jsx';
+import EditReview from './EditReview.jsx';
 
 const Feed = ({
   fetchFeed,
@@ -13,6 +14,50 @@ const Feed = ({
   useEffect(() => {
     fetchFeed();
   }, [activeButton]);
+
+  const [open, setOpen] = useState(false);
+
+  const [inputs, setInputs] = useState({
+    category: 'Activities',
+    rating: 1,
+    comments: '',
+  });
+
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+
+  console.log(address);
+  const handleChange = (e) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  };
+
+  const reviewObj = {
+    category: inputs.category,
+    name: name,
+    Address: address,
+    city: city,
+    rating: inputs.rating,
+    comments: inputs.comments,
+  };
+
+  const handleSubmit = (e) => {
+    setOpen(false);
+    setInputs({
+      category: 'Activities',
+      rating: 1,
+      comments: '',
+    });
+    axios.post('/api/review', {
+      user_id: user._id,
+      city: city,
+      review_type: inputs.category,
+      name: name,
+      rating: inputs.rating,
+      address: address,
+      comments: inputs.comments,
+    });
+  };
 
   const posts = [];
   feedList.forEach((review) => {
@@ -44,7 +89,12 @@ const Feed = ({
 
   return (
     <div className='feed-container'>
-      <h2>{location}</h2>
+      <div id='feed-header'>
+        <h2>{location}</h2>
+        <button id='new-review' onClick={() => setOpen(true)}>
+          New Review
+        </button>
+      </div>
       <div id='button-container'>
         <button
           value='Activities'
@@ -69,6 +119,21 @@ const Feed = ({
           Restaurants
         </button>
       </div>
+      {open ? (
+        <EditReview
+          title={'New'}
+          current={reviewObj}
+          change={handleChange}
+          cancel={() => setOpen(false)}
+          submit={handleSubmit}
+          name={name}
+          setName={setName}
+          address={address}
+          setAddress={setAddress}
+          city={city}
+          setCity={setCity}
+        />
+      ) : null}
       <div id='posts-container'>{posts}</div>
     </div>
   );

@@ -1,9 +1,12 @@
 import React, { useState, useContext } from 'react';
-import Feed from '../Feed.jsx';
+import Feed from '../components/Feed.jsx';
 import { useLocation } from 'react-router-dom';
-import EditProfile from '../EditProfile.jsx';
+import EditProfile from '../components/EditProfile.jsx';
 import axios from 'axios';
-import UserContext from '../../UserContext.jsx';
+import UserContext from '../UserContext.jsx';
+import BuildingPic from '../../public/building.svg';
+import ProfileStock from '../../public/profile-stock.jpg';
+import EditPic from '../../public/edit.svg';
 
 const ProfileContainer = () => {
   const location = useLocation();
@@ -65,20 +68,20 @@ const ProfileContainer = () => {
     <div id='profile-page'>
       <div id='sidebar'>
         <button id='edit-profile-button' onClick={() => setOpen(!open)}>
-          <img src={'./edit.svg'} />
+          <img src={EditPic} />
         </button>
         <div id='sidebar-header'>
           <img
             height='200px'
             width='200px'
             id='profile-picture'
-            src={'./profile-stock.jpg'}
+            src={ProfileStock}
           />
           <h2>{user.username}</h2>
         </div>
         <ul>
           <li>
-            <img height='25px' width='25px' src={'./building.svg'} />
+            <img height='25px' width='25px' src={BuildingPic} />
             {state.favoriteCity}
           </li>
           <li>Bio: </li>

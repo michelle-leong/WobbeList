@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Feed from '../Feed.jsx';
+import Feed from '../components/Feed.jsx';
 import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 

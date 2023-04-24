@@ -1,25 +1,36 @@
 import React from 'react';
+import Autocomplete from 'react-google-autocomplete';
+{
+  /* <Autocomplete
+            apiKey={googleKey}
+            onPlaceSelected={(place) => {
+              // navigate(`/user/${place.formatted_address.split(', ')[0]}`);
+              console.log(place);
+            }}
+            options={{
+              types: ['establishment'],
+            }} /> */
+}
 
-function EditReview({ title, change, submit, cancel, current }) {
+const EditReview = ({
+  title,
+  change,
+  submit,
+  cancel,
+  current,
+  setName,
+  setAddress,
+  setCity,
+  name,
+  address,
+  city,
+}) => {
+  const googleKey = process.env.API_KEY;
   return (
     <div id='edit-review-box'>
       <h1> {title} Review</h1>
 
       <table>
-        <tr>
-          <td>
-            <label>City: </label>
-          </td>
-          <td>
-            <input
-              type='text'
-              name='city'
-              id='city'
-              onChange={change}
-              value={current.city}
-            />
-          </td>
-        </tr>
         <tr>
           <td>
             <label>Category: </label>
@@ -41,13 +52,55 @@ function EditReview({ title, change, submit, cancel, current }) {
           <td>
             <label>Name: </label>
           </td>
+
           <td>
-            <input
+            <Autocomplete
+              apiKey={googleKey}
+              onPlaceSelected={(place) => {
+                console.log(place);
+                setAddress(place.formatted_address.split(', ')[0]);
+                setCity(place.address_components[2].long_name);
+                setName(place.name);
+              }}
+              options={{
+                types: ['establishment'],
+                fields: ['address_components', 'name', 'formatted_address'],
+              }}
+            />
+            {/* <input
               type='text'
               name='name'
               id='name'
               onChange={change}
               value={current.name}
+             /> */}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Address: </label>
+          </td>
+          <td>
+            <input
+              type='text'
+              name='address'
+              id='address'
+              onChange={change}
+              value={address}
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>City: </label>
+          </td>
+          <td>
+            <input
+              type='text'
+              name='city'
+              id='city'
+              onChange={change}
+              value={city}
             />
           </td>
         </tr>
@@ -83,20 +136,6 @@ function EditReview({ title, change, submit, cancel, current }) {
             />
           </td>
         </tr>
-        <tr>
-          <td>
-            <label>Address: </label>
-          </td>
-          <td>
-            <input
-              type='text'
-              name='address'
-              id='address'
-              onChange={change}
-              value={current.address}
-            />
-          </td>
-        </tr>
       </table>
       <div id='edit-review-buttons'>
         <button id='edit-cancel' onClick={cancel}>
@@ -108,6 +147,6 @@ function EditReview({ title, change, submit, cancel, current }) {
       </div>
     </div>
   );
-}
+};
 
 export default EditReview;

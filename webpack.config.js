@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: '',
@@ -23,8 +24,8 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        test: /.(scss|sass|css)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /react-router-dom/,
@@ -43,7 +44,7 @@ module.exports = {
             loader: 'image-webpack-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'assets/images/',
+              outputPath: 'public/',
             },
           },
         ],
@@ -54,6 +55,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'index.html'),
     }),
+    new Dotenv(),
   ],
   devServer: {
     static: {
