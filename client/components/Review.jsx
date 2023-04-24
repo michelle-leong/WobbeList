@@ -1,9 +1,7 @@
 import React, { useState, useContext } from 'react';
 import EditReview from './EditReview.jsx';
 import axios from 'axios';
-import addressPic from '/client/location.svg';
-import cityPic from '/client/building.svg';
-import edit from '../edit.svg';
+
 import UserContext from '../UserContext.jsx';
 
 const Review = ({
@@ -54,7 +52,7 @@ const Review = ({
     <div className='review-post'>
       {windowLocation.includes('user/profile') && (
         <button className='edit-button' onClick={() => handleClick()}>
-          <img src={edit} width='30px' height='30px' />
+          <img src={'./edit.svg'} width='30px' height='30px' />
         </button>
       )}
       <ul className='review-info'>
@@ -63,7 +61,7 @@ const Review = ({
           <span className='star-container'>{rating}</span>
         </li>
         <li className='addresss'>
-          <img className='address-icon' src={addressPic} /> {address}
+          <img className='address-icon' src={'./location.svg'} /> {address}
         </li>
         {windowLocation.includes('user/profile') && (
           <li className='city-review'>
@@ -71,7 +69,7 @@ const Review = ({
               className='city-icon'
               height='20px'
               width='20px'
-              src={cityPic}
+              src={'./building.svg'}
             />
             <strong>{city}</strong>
           </li>

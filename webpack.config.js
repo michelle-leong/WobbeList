@@ -60,6 +60,7 @@ module.exports = {
       publicPath: '/build',
       directory: path.join(__dirname, 'dist'),
     },
+    historyApiFallback: true,
     port: 8080,
     open: true,
     hot: true,
@@ -70,6 +71,5 @@ module.exports = {
         secure: false,
       },
     },
-    historyApiFallback: true,
   },
 };

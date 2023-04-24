@@ -7,8 +7,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const mongoose = require('mongoose');
-const axios = require('axios');
 const db = require('./models/db.js');
 const reviewRouter = require('./routers/reviewRouter.js');
 const UsersRouter = require('./routers/apiRouter.js');
@@ -17,10 +15,9 @@ const app = express();
 // PORT
 const PORT = 3000;
 
-
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded()); //added this
+// app.use(express.urlencoded()); //added this
 app.use(cookieParser());
 
 // static elements
@@ -29,6 +26,14 @@ app.use('/client', express.static(path.join(__dirname, '/dist')));
 // api calls
 app.use('/api/user', UsersRouter);
 app.use('/api/review', reviewRouter);
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../dist/index.html'), (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
 
 // global error handler
 app.use((err, req, res, next) => {
@@ -46,5 +51,3 @@ app.use((err, req, res, next) => {
 db.once('open', () => {
   app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
 });
-
-

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserContext from '../UserContext.jsx';
+import UserContext from '../../UserContext.jsx';
+import NavBar from '../NavBar.jsx';
 
 const HomePage = () => {
   const [location, setLocation] = useState('');
@@ -10,17 +11,17 @@ const HomePage = () => {
 
   const handleChange = (e) => {
     setLocation(e.target.value);
-    console.log(user);
   };
 
-  const handleKeyDown = async (e) => {
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      navigate(`/user/${location}`);
+      navigate(`/${location}`);
     }
   };
 
   return (
     <div id='home-page-container'>
+      <NavBar />
       <div id='home-page'>
         <p>Where to? </p>
         <div id='search-bar'>
