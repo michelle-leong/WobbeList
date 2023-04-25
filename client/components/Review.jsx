@@ -60,6 +60,7 @@ const Review = ({
 
   return (
     <div className='review-post'>
+      {/* only allow edits to reviews if in profile page */}
       {windowLocation.includes('user/profile') && (
         <button className='edit-button' onClick={() => handleClick()}>
           <img src={EditPic} width='30px' height='30px' />
@@ -73,6 +74,7 @@ const Review = ({
         <li className='addresss'>
           <img className='address-icon' src={CityPic} /> {address}
         </li>
+        {/* only show city of review if in profile page */}
         {windowLocation.includes('user/profile') && (
           <li className='city-review'>
             <img

@@ -7,8 +7,8 @@ const HomePage = () => {
   const googleKey = process.env.API_KEY;
 
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
 
+  //maybe have it set an input and then search on enter?
   return (
     <div id='home-page-container'>
       <div id='home-page'>

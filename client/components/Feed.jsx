@@ -43,6 +43,7 @@ const Feed = ({
     comments: inputs.comments,
   };
 
+  //submitting a new review
   const handleSubmit = (e) => {
     setOpen(false);
     setInputs({
@@ -55,9 +56,13 @@ const Feed = ({
     setCity('');
     axios.post('/api/review/', reviewObj).then((res) => {
       const data = res.data;
-      if (data.city === location && data.review_type === activeButton) {
+      if (data.city === location && data.review_type === activeButton)
         fetchFeed();
-      }
+      else if (
+        windowLocation.includes('user/profile') &&
+        data.review_type === activeButton
+      )
+        fetchFeed();
     });
   };
 

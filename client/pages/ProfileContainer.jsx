@@ -19,6 +19,7 @@ const ProfileContainer = () => {
 
   const [open, setOpen] = useState(false);
 
+  //determine which type of review to show based on active tab
   const handleClick = (e) => {
     setState({
       ...state,
@@ -55,6 +56,7 @@ const ProfileContainer = () => {
     });
   };
 
+  //fetch user feed and set feedList in state
   const fetchUserFeed = () => {
     axios
       .get(

@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import UserContext from '../UserContext.jsx';
+import React from 'react';
 
 const EditProfile = ({ change, cancel, submit, inputs }) => {
   return (

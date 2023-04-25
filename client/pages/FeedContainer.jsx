@@ -4,7 +4,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const FeedContainer = () => {
-  const windowLocation = useLocation();
+  const windowLocation = useLocation(); //determines if in city feed or profile feed
   const { location } = useParams();
   const [state, setState] = useState({
     activeButton: 'Activities',
@@ -29,12 +29,12 @@ const FeedContainer = () => {
       .catch((err) => console.log(err));
   };
 
-  const titleSplit = location.split(' ');
-  const titleArr = [];
-  titleSplit.forEach((word) => {
-    titleArr.push(word[0].toUpperCase().concat(word.slice(1)));
-  });
-  const title = titleArr.join(' ');
+  // const titleSplit = location.split(' ');
+  // const titleArr = [];
+  // titleSplit.forEach((word) => {
+  //   titleArr.push(word[0].toUpperCase().concat(word.slice(1)));
+  // });
+  // const title = titleArr.join(' ');
   return (
     <div id='feed-page'>
       <Feed
@@ -42,7 +42,7 @@ const FeedContainer = () => {
         handleClick={handleClick}
         activeButton={state.activeButton}
         feedList={state.feedList}
-        location={title}
+        location={location}
         windowLocation={windowLocation.pathname}
       />
     </div>
