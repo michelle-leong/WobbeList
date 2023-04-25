@@ -25,6 +25,7 @@ const Feed = ({
     comments: '',
   });
 
+  //separated since name input is autocomplete for landmarks/restaurants vs address is autocomplete for activities
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
@@ -78,8 +79,7 @@ const Feed = ({
     setOpen(false);
   };
 
-  const posts = [];
-  feedList.forEach((review) => {
+  const posts = feedList.map((review) => {
     const stars = [];
     for (let i = 0; i < review.rating; i++) {
       stars.push(<span className='star'>&#9733;</span>);
@@ -89,7 +89,7 @@ const Feed = ({
         stars.push(<span className='empty-star'>&#9734;</span>);
       }
     }
-    posts.push(
+    return (
       <Review
         key={review._id}
         windowLocation={windowLocation}

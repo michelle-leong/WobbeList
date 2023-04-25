@@ -40,14 +40,15 @@ function Login(props) {
     }
   }, [user]);
 
-  const handleClick = (event) => {
-    event.preventDefault();
+  const handleClick = (e) => {
+    e.preventDefault();
 
     axios
       .post(reqPath, { username, password })
       .then((res) => {
         const user = res.data.user;
         setUser(user);
+        sessionStorage.setItem('user', JSON.stringify(user));
         setUsername('');
         setPassword('');
       })

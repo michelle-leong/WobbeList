@@ -9,15 +9,7 @@ import NotFound from './NotFound.jsx';
 import UserContext from '../UserContext.jsx';
 
 const App = () => {
-  const [user, setUser] = useState({
-    _id: '640a3408e970ea61e031258d',
-    username: 'test',
-    favorite_city: '',
-    description: '',
-  });
-
-  //user: test
-  //password: test
+  const [user, setUser] = useState(null);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

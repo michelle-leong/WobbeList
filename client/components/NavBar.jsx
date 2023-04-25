@@ -1,15 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import UserContext from '../UserContext.jsx';
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
 
+  const refreshUser = JSON.parse(sessionStorage.getItem('user'));
+
   const navigate = useNavigate();
 
-  if (!user) navigate('/');
+  useEffect(() => {
+    if (!user && !refreshUser) {
+      navigate('/');
+    } else if (refreshUser) {
+      setUser(refreshUser);
+    }
+  }, []);
+
   const logout = () => {
     setUser(null);
+    sessionStorage.clear();
     navigate('/');
   };
 
