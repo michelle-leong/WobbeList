@@ -40,7 +40,7 @@ const EditReview = ({
               name='category'
               id='category'
               onChange={change}
-              value={current.category}
+              value={current.review_type}
             >
               <option value='Activities'>Activity</option>
               <option value='Landmarks'>Landmark</option>
@@ -52,28 +52,31 @@ const EditReview = ({
           <td>
             <label>Name: </label>
           </td>
-
           <td>
-            <Autocomplete
-              apiKey={googleKey}
-              onPlaceSelected={(place) => {
-                console.log(place);
-                setAddress(place.formatted_address.split(', ')[0]);
-                setCity(place.address_components[2].long_name);
-                setName(place.name);
-              }}
-              options={{
-                types: ['establishment'],
-                fields: ['address_components', 'name', 'formatted_address'],
-              }}
-            />
-            {/* <input
-              type='text'
-              name='name'
-              id='name'
-              onChange={change}
-              value={current.name}
-             /> */}
+            {current.review_type === 'Activities' ? (
+              <input
+                type='text'
+                name='name'
+                id='name'
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+              />
+            ) : (
+              <Autocomplete
+                apiKey={googleKey}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                onPlaceSelected={(place) => {
+                  setAddress(place.formatted_address.split(', ')[0]);
+                  setCity(place.formatted_address.split(', ')[1]);
+                  setName(place.name);
+                }}
+                options={{
+                  types: ['establishment'],
+                  fields: ['name', 'formatted_address'],
+                }}
+              />
+            )}
           </td>
         </tr>
         <tr>
@@ -81,13 +84,29 @@ const EditReview = ({
             <label>Address: </label>
           </td>
           <td>
-            <input
-              type='text'
-              name='address'
-              id='address'
-              onChange={change}
-              value={address}
-            />
+            {current.review_type === 'Activities' ? (
+              <Autocomplete
+                apiKey={googleKey}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                onPlaceSelected={(place) => {
+                  setAddress(place.formatted_address.split(', ')[0]);
+                  setCity(place.formatted_address.split(', ')[1]);
+                }}
+                options={{
+                  types: ['establishment'],
+                  fields: ['name', 'formatted_address'],
+                }}
+              />
+            ) : (
+              <input
+                type='text'
+                name='address'
+                id='address'
+                onChange={(e) => setAddress(e.target.value)}
+                value={address}
+              />
+            )}
           </td>
         </tr>
         <tr>
@@ -99,7 +118,7 @@ const EditReview = ({
               type='text'
               name='city'
               id='city'
-              onChange={change}
+              onChange={(e) => setCity(e.target.value)}
               value={city}
             />
           </td>

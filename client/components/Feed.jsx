@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import UserContext from '../UserContext.jsx';
 import Review from './Review.jsx';
 import EditReview from './EditReview.jsx';
+import axios from 'axios';
 
 const Feed = ({
   fetchFeed,
@@ -15,6 +16,7 @@ const Feed = ({
     fetchFeed();
   }, [activeButton]);
 
+  const { user } = useContext(UserContext);
   const [open, setOpen] = useState(false);
 
   const [inputs, setInputs] = useState({
@@ -27,17 +29,17 @@ const Feed = ({
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
 
-  console.log(address);
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
   const reviewObj = {
-    category: inputs.category,
-    name: name,
-    Address: address,
+    user_id: user._id,
     city: city,
+    review_type: inputs.category,
+    name: name,
     rating: inputs.rating,
+    address: address,
     comments: inputs.comments,
   };
 
@@ -48,15 +50,27 @@ const Feed = ({
       rating: 1,
       comments: '',
     });
-    axios.post('/api/review', {
-      user_id: user._id,
-      city: city,
-      review_type: inputs.category,
-      name: name,
-      rating: inputs.rating,
-      address: address,
-      comments: inputs.comments,
+    setName('');
+    setAddress('');
+    setCity('');
+    axios.post('/api/review/', reviewObj).then((res) => {
+      const data = res.data;
+      if (data.city === location && data.review_type === activeButton) {
+        fetchFeed();
+      }
     });
+  };
+
+  const handleCancel = () => {
+    setName('');
+    setAddress('');
+    setCity('');
+    setInputs({
+      category: 'Activities',
+      rating: 1,
+      comments: '',
+    });
+    setOpen(false);
   };
 
   const posts = [];
@@ -72,8 +86,8 @@ const Feed = ({
     }
     posts.push(
       <Review
-        windowLocation={windowLocation}
         key={review._id}
+        windowLocation={windowLocation}
         reviewId={review._id}
         city={review.city}
         locationName={review.name}
@@ -83,6 +97,8 @@ const Feed = ({
         type={review.review_type}
         description={review.comments}
         userName={review.username}
+        activeButton={activeButton}
+        fetchFeed={fetchFeed}
       />
     );
   });
@@ -124,7 +140,7 @@ const Feed = ({
           title={'New'}
           current={reviewObj}
           change={handleChange}
-          cancel={() => setOpen(false)}
+          cancel={handleCancel}
           submit={handleSubmit}
           name={name}
           setName={setName}

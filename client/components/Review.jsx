@@ -17,18 +17,21 @@ const Review = ({
   description,
   userName,
   windowLocation,
+  activeButton,
+  fetchFeed,
 }) => {
   const { user } = useContext(UserContext);
-  const id = user._id;
   const [openEdit, setOpenEdit] = useState(false);
   const [inputsReview, setInputsReview] = useState({
-    city,
-    category: type,
-    name: locationName,
+    review_type: type,
     rating: ratingNum,
     comments: description,
-    address,
   });
+
+  console.log(inputsReview);
+  const [inputName, setInputName] = useState(locationName);
+  const [inputCity, setInputCity] = useState(city);
+  const [inputAddress, setInputAddress] = useState(address);
   const handleClick = () => {
     setOpenEdit(true);
   };
@@ -39,15 +42,21 @@ const Review = ({
 
   const handleSubmit = () => {
     setOpenEdit(false);
-    axios.put(`http://localhost:3000/api/review/${reviewId}`, {
-      user_id: id,
-      city: inputsReview.city,
-      review_type: inputsReview.category,
-      name: inputsReview.name,
-      rating: inputsReview.rating,
-      address: inputsReview.address,
-      comments: inputsReview.comments,
-    });
+    axios
+      .put(`/api/review/${reviewId}`, {
+        user_id: user._id,
+        city: inputCity,
+        review_type: inputsReview.category,
+        name: inputName,
+        rating: inputsReview.rating,
+        address: inputAddress,
+        comments: inputsReview.comments,
+      })
+      .then((res) => {
+        if (inputsReview.review_type === activeButton) {
+          fetchFeed();
+        }
+      });
   };
 
   return (
@@ -84,10 +93,16 @@ const Review = ({
       {openEdit ? (
         <EditReview
           title={'Edit'}
-          current={inputsReview}
           change={handleChange}
-          cancel={() => setOpenEdit(false)}
           submit={handleSubmit}
+          cancel={() => setOpenEdit(false)}
+          current={inputsReview}
+          setName={setInputName}
+          setAddress={setInputAddress}
+          setCity={setInputCity}
+          name={inputName}
+          address={inputAddress}
+          city={inputCity}
         />
       ) : null}
     </div>

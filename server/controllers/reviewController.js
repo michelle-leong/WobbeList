@@ -6,11 +6,11 @@ const reviewController = {};
 //CREATE A REVIEW
 reviewController.createReview = async (req, res, next) => {
   try {
-    const { user_id, city, review_type, name, rating, address, comments } = req.body;
+    const { user_id, city, review_type, name, rating, address, comments } =
+      req.body;
 
     // Find the user document corresponding to the given user_id
     const user = await UserModel.findById(user_id);
-
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
@@ -34,7 +34,8 @@ reviewController.createReview = async (req, res, next) => {
   } catch (error) {
     // Make a custom error object to be passed into our error handler
     const errObj = {
-      message: 'ERROR: Express encountered an unidentified middleware error in reviewController.createReview',
+      message:
+        'ERROR: Express encountered an unidentified middleware error in reviewController.createReview',
       statusCode: 500,
       log: { error: error.message },
     };
@@ -46,28 +47,29 @@ reviewController.createReview = async (req, res, next) => {
 
 //DELETE A REVIEW
 reviewController.deleteReview = async (req, res) => {
-  try{
+  try {
     //destructure the id of the review we are trying to delete
     const { reviewId } = req.params;
 
     //Find the review doc by ID and remove from DB
     const deletedReview = await ReviewModel.findByIdAndRemove(reviewId);
-  
-   if(deletedReview === undefined) {
-      return res.status(404).json({ERROR: 'Review not found'});
+
+    if (deletedReview === undefined) {
+      return res.status(404).json({ ERROR: 'Review not found' });
     }
 
-    return res.json({message: 'Review deleted from the database!'})
-  } catch(error) {
-      // Make a custom error object to be passed into our error handler
-      const errObj = {
-        message: 'ERROR: Express encountered an unidentified middleware error in reviewController.createReview',
-        statusCode: 500,
-        log: { error: error.message },
-      };
-    
-      // Pass our errObj to be handled by our global error handler
-      next(errObj);
+    return res.json({ message: 'Review deleted from the database!' });
+  } catch (error) {
+    // Make a custom error object to be passed into our error handler
+    const errObj = {
+      message:
+        'ERROR: Express encountered an unidentified middleware error in reviewController.createReview',
+      statusCode: 500,
+      log: { error: error.message },
+    };
+
+    // Pass our errObj to be handled by our global error handler
+    next(errObj);
   }
 };
 
@@ -78,10 +80,14 @@ reviewController.updateReview = async (req, res) => {
     const { reviewId } = req.params;
 
     // Find the review document by ID and update it with the new data
-    const updatedReview = await ReviewModel.findByIdAndUpdate(reviewId, req.body, {
-      new: true, // Return the updated document instead of the old one
-      runValidators: true, // Validate the update operation against the schema
-    });
+    const updatedReview = await ReviewModel.findByIdAndUpdate(
+      reviewId,
+      req.body,
+      {
+        new: true, // Return the updated document instead of the old one
+        runValidators: true, // Validate the update operation against the schema
+      }
+    );
 
     if (!updatedReview) {
       return res.status(404).json({ error: 'Review not found' });
@@ -92,7 +98,8 @@ reviewController.updateReview = async (req, res) => {
   } catch (error) {
     // Make a custom error object to be passed into our error handler
     const errObj = {
-      message: 'ERROR: Express encountered an unidentified middleware error in reviewController.updateReview',
+      message:
+        'ERROR: Express encountered an unidentified middleware error in reviewController.updateReview',
       statusCode: 500,
       log: { error: error.message },
     };
@@ -113,7 +120,8 @@ reviewController.getAllReviews = async (req, res) => {
   } catch (error) {
     // Make a custom error object to be passed into our error handler
     const errObj = {
-      message: 'ERROR: Express encountered an unidentified middleware error in reviewController.getAllReviews',
+      message:
+        'ERROR: Express encountered an unidentified middleware error in reviewController.getAllReviews',
       statusCode: 500,
       log: { error: error.message },
     };
@@ -141,7 +149,8 @@ reviewController.getReview = async (req, res) => {
   } catch (error) {
     // Make a custom error object to be passed into our error handler
     const errObj = {
-      message: 'ERROR: Express encountered an unidentified middleware error in reviewController.getReview',
+      message:
+        'ERROR: Express encountered an unidentified middleware error in reviewController.getReview',
       statusCode: 500,
       log: { error: error.message },
     };
@@ -150,7 +159,6 @@ reviewController.getReview = async (req, res) => {
     next(errObj);
   }
 };
-
 
 //GET ALL REVIEWS FOR A SPECIFIC USER
 reviewController.getUserReviews = async (req, res, next) => {
@@ -166,7 +174,8 @@ reviewController.getUserReviews = async (req, res, next) => {
   } catch (error) {
     // Make a custom error object to be passed into our error handler
     const errObj = {
-      message: 'ERROR: Express encountered an unidentified middleware error in reviewController.getUserReviews',
+      message:
+        'ERROR: Express encountered an unidentified middleware error in reviewController.getUserReviews',
       statusCode: 500,
       log: { error: error.message },
     };
@@ -183,14 +192,15 @@ reviewController.getReviewsByCity = async (req, res, next) => {
     const { city } = req.params;
 
     // Find all reviews with the given city
-    const reviews = await ReviewModel.find({ city: new RegExp(city, "i") });
+    const reviews = await ReviewModel.find({ city: new RegExp(city, 'i') });
 
     // Return the reviews as a JSON response
     res.json(reviews);
   } catch (error) {
     // Make a custom error object to be passed into our error handler
     const errObj = {
-      message: 'ERROR: Express encountered an unidentified middleware error in reviewController.getReviewsByCity',
+      message:
+        'ERROR: Express encountered an unidentified middleware error in reviewController.getReviewsByCity',
       statusCode: 500,
       log: { error: error.message },
     };
@@ -200,7 +210,6 @@ reviewController.getReviewsByCity = async (req, res, next) => {
   }
 };
 
-
 //GET ALL REVIEWS BY CITY BY TYPE
 reviewController.getReviewsByCityAndType = async (req, res, next) => {
   try {
@@ -209,16 +218,20 @@ reviewController.getReviewsByCityAndType = async (req, res, next) => {
     const reviewType = req.params.reviewType;
 
     // Find all reviews with the given city and review type
-    const regexCity = new RegExp(city, "i");
-    const regexReviewType = new RegExp(reviewType, "i");
-    const reviews = await ReviewModel.find({ city: regexCity, review_type: regexReviewType });
+    const regexCity = new RegExp(city, 'i');
+    const regexReviewType = new RegExp(reviewType, 'i');
+    const reviews = await ReviewModel.find({
+      city: regexCity,
+      review_type: regexReviewType,
+    });
 
     // Return the reviews as a JSON response
     res.json(reviews);
   } catch (error) {
     // Make a custom error object to be passed into our error handler
     const errObj = {
-      message: 'ERROR: Express encountered an unidentified middleware error in reviewController.getReviewsByCityAndType',
+      message:
+        'ERROR: Express encountered an unidentified middleware error in reviewController.getReviewsByCityAndType',
       statusCode: 500,
       log: { error: error.message },
     };
@@ -242,7 +255,8 @@ reviewController.getReviewsByCityAndUser = async (req, res, next) => {
   } catch (error) {
     // Make a custom error object to be passed into our error handler
     const errObj = {
-      message: 'ERROR: Express encountered an unidentified middleware error in reviewController.getReviewsByCityAndUser',
+      message:
+        'ERROR: Express encountered an unidentified middleware error in reviewController.getReviewsByCityAndUser',
       statusCode: 500,
       log: { error: error.message },
     };
@@ -259,15 +273,19 @@ reviewController.getReviewsByUserAndType = async (req, res, next) => {
     const { userId, reviewType } = req.params;
 
     // Find all reviews with the given user ID and review type
-    const regexReviewType = new RegExp(reviewType, "i");
-    const reviews = await ReviewModel.find({ user_id: userId, review_type: regexReviewType });
+    const regexReviewType = new RegExp(reviewType, 'i');
+    const reviews = await ReviewModel.find({
+      user_id: userId,
+      review_type: regexReviewType,
+    });
 
     // Return the reviews as a JSON response
     res.json(reviews);
   } catch (error) {
     // Make a custom error object to be passed into our error handler
     const errObj = {
-      message: 'ERROR: Express encountered an unidentified middleware error in reviewController.getReviewsByUserAndType',
+      message:
+        'ERROR: Express encountered an unidentified middleware error in reviewController.getReviewsByUserAndType',
       statusCode: 500,
       log: { error: error.message },
     };
