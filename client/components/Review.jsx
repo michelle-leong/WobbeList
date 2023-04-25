@@ -28,7 +28,6 @@ const Review = ({
     comments: description,
   });
 
-  console.log(inputsReview);
   const [inputName, setInputName] = useState(locationName);
   const [inputCity, setInputCity] = useState(city);
   const [inputAddress, setInputAddress] = useState(address);

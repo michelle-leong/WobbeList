@@ -67,6 +67,7 @@ const EditReview = ({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 onPlaceSelected={(place) => {
+                  console.log(place);
                   setAddress(place.formatted_address.split(', ')[0]);
                   setCity(place.formatted_address.split(', ')[1]);
                   setName(place.name);
