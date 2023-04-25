@@ -1,7 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import EditReview from './EditReview.jsx';
 import UserContext from '../UserContext.jsx';
 
 const NavBar = () => {

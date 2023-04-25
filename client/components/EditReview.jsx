@@ -1,16 +1,5 @@
 import React from 'react';
 import Autocomplete from 'react-google-autocomplete';
-{
-  /* <Autocomplete
-            apiKey={googleKey}
-            onPlaceSelected={(place) => {
-              // navigate(`/user/${place.formatted_address.split(', ')[0]}`);
-              console.log(place);
-            }}
-            options={{
-              types: ['establishment'],
-            }} /> */
-}
 
 const EditReview = ({
   title,
@@ -29,7 +18,6 @@ const EditReview = ({
   return (
     <div id='edit-review-box'>
       <h1> {title} Review</h1>
-
       <table>
         <tr>
           <td>

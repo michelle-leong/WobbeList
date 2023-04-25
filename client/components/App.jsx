@@ -7,10 +7,8 @@ import ProfileContainer from '../pages/ProfileContainer.jsx';
 import Login from './Login.jsx';
 import NotFound from './NotFound.jsx';
 import UserContext from '../UserContext.jsx';
-import { useCookies } from 'react-cookie';
 
 const App = () => {
-  const [cookies] = useCookies();
   const [user, setUser] = useState({
     _id: '640a3408e970ea61e031258d',
     username: 'test',

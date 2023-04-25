@@ -1,0 +1,32 @@
+#home-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  background-color: #fffffe
+
+}
+#search-bar {
+  border: 1px solid #222222;
+  width: 400px;
+  border-radius: 20px;
+  height: 30px;
+}
+
+#home-page input {
+  margin: 3px 0 0 12px;
+  height: 25px;
+  width: 370px;
+  font-size: 20px;
+  border: none;
+}
+
+#home-page input:focus {
+  outline: none;
+}
+
+#home-page p {
+  text-align: center;
+  font-size: 45px;
+  margin-bottom: 20px;
+}

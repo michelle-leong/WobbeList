@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import UserContext from '../UserContext.jsx';
 
-const EditProfile = ({ change, cancel, submit }) => {
+const EditProfile = ({ change, cancel, submit, inputs }) => {
   return (
     <div id='edit-profile'>
       <h1>Edit Profile</h1>
@@ -10,7 +11,12 @@ const EditProfile = ({ change, cancel, submit }) => {
             <label>Name: </label>
           </td>
           <td>
-            <input type='text' name='name' onChange={change} />
+            <input
+              type='text'
+              name='username'
+              onChange={change}
+              value={inputs.username}
+            />
           </td>
         </tr>
         <tr>
@@ -18,7 +24,12 @@ const EditProfile = ({ change, cancel, submit }) => {
             <label>Favorite City:</label>
           </td>
           <td>
-            <input type='text' name='favoriteCity' onChange={change} />
+            <input
+              type='text'
+              name='favorite_city'
+              onChange={change}
+              value={inputs.favorite_city}
+            />
           </td>
         </tr>
         <tr>
@@ -26,7 +37,11 @@ const EditProfile = ({ change, cancel, submit }) => {
             <label>Bio: </label>
           </td>
           <td>
-            <textarea name='bio' onChange={change} />
+            <textarea
+              name='description'
+              onChange={change}
+              value={inputs.description}
+            />
           </td>
         </tr>
       </table>

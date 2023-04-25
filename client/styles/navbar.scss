@@ -1,0 +1,48 @@
+#nav-links {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style-type: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 15px 10px;
+  background-color: #fffffe;
+  border-bottom: 1px solid #CCCCCC;
+  cursor: pointer;
+}
+
+#my-profile {
+  margin-left: 70%;
+}
+#nav-links li {
+  display: inline;
+}
+
+#nav-links a {
+  color: #222222;
+  font-size: 25px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#new-review {
+  color: #fffffe;
+  border: none;
+  border-radius: 10px;
+  background-color: #3da9fc;
+  border: 1px solid #3da9fc;
+  font-size: 18px;
+  height: 35px;
+  width: 130px;
+  cursor: pointer;
+}
+
+#logout {
+  color: #3da9fc;
+  border: none;
+  border-radius: 10px;
+  background-color: #fffffe;
+  font-size: 18px;
+  height: 35px;
+  width: 100;
+}

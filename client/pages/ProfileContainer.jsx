@@ -14,15 +14,12 @@ const ProfileContainer = () => {
   const [state, setState] = useState({
     activeButton: 'Activities',
     feedList: [],
-    favoriteCity: user.favoriteCity,
-    description: user.description,
   });
   const id = user._id;
 
   const [open, setOpen] = useState(false);
 
   const handleClick = (e) => {
-    console.log(e.target.value);
     setState({
       ...state,
       activeButton: e.target.value,
@@ -30,9 +27,9 @@ const ProfileContainer = () => {
   };
 
   const [inputs, setInputs] = useState({
-    name: '',
-    favoriteCity: '',
-    description: '',
+    username: user.username,
+    favorite_city: user.favorite_city,
+    description: user.description,
   });
 
   const handleChange = (e) => {
@@ -41,16 +38,20 @@ const ProfileContainer = () => {
 
   const submitForm = () => {
     setOpen(false);
-    const data = {};
-    for (let key in inputs) {
-      if (!inputs[key].length) {
-        data[key] = inputs[key];
-        setUser({ ...user, [key]: [data[key]] });
-      }
-    }
+    const userInfo = {
+      userId: id,
+      ...inputs,
+    };
 
-    axios.post(`/api/update`, {
-      ...data,
+    axios.patch(`/api/user/update`, userInfo).then((res) => {
+      if (res.status === 200) {
+        setUser({
+          ...user,
+          username: inputs.username,
+          favorite_city: inputs.favorite_city,
+          description: inputs.description,
+        });
+      }
     });
   };
 
@@ -82,10 +83,10 @@ const ProfileContainer = () => {
         <ul>
           <li>
             <img height='25px' width='25px' src={BuildingPic} />
-            {state.favoriteCity}
+            {user.favorite_city}
           </li>
           <li>Bio: </li>
-          {state.description}
+          {user.description}
         </ul>
       </div>
       {open ? (
@@ -93,6 +94,7 @@ const ProfileContainer = () => {
           change={handleChange}
           cancel={() => setOpen(false)}
           submit={submitForm}
+          inputs={inputs}
         />
       ) : null}
       <div id='profile-feed' className='profile-feed'>

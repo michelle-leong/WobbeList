@@ -135,10 +135,10 @@ userController.deleteUser = async (req, res, next) => {
 userController.updateUser = async (req, res, next) => {
   try {
     // get userId from the saved session userId
-    const { userId } = req.session.userId;
-
+    const { userId } = req.body;
+    console.log('in update user');
     // find the user by userId
-    const user = await UserModel.findOne({ userId });
+    const user = await UserModel.findOneAndUpdate({ _id: userId }, req.body);
 
     // if user is not found, return a 404 error
     if (!user) {
@@ -149,26 +149,6 @@ userController.updateUser = async (req, res, next) => {
       };
       return next(err);
     }
-
-    // destructure the new username and or password, city, info from request body
-    const { newUsername, newPassword, favorite_city, description } = req.body;
-
-    // update the user's username and/or password
-    user.username = newUsername ? newUsername : user.username;
-
-    if (newPassword) {
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(newPassword, salt);
-      user.password = hashedPassword;
-    }
-
-    //update favorite city and description
-    user.favorite_city = favorite_city ? favorite_city : user.favorite_city;
-
-    user.description = description ? description : user.description;
-
-    // save the updated user to the database
-    await user.save();
 
     // return a success message with a 200 status code
     return res.status(200).json({ message: 'user updated successfully' });

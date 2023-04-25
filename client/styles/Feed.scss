@@ -1,0 +1,132 @@
+#button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid #f9f2f2;
+}
+
+.feed-container button {
+  background-color: #fcfdfd;
+  border: none;
+  cursor: pointer;
+  color: #797979;
+  font-size: 20px;
+}
+
+.feed-container .active {
+  font-weight: bold;
+  text-decoration: underline solid #3da9fc;
+  color: #3da9fc;
+}
+
+
+.feed-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fcfdfd; 
+  height: 100vh;
+  border-left: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+  width: 70%;
+  min-width: 900px;
+  max-width: 1100px;
+  margin: 0 auto;
+
+}
+
+#landmark {
+  margin: 0 20px;
+}
+
+.feed-container h2 {
+  font-size: 50px;
+}
+
+#feed-page {
+  background-color: #d8eefe;
+}
+
+
+#posts-container {
+  width: 60%;
+  max-width: 600px;
+  min-width: 425px;
+}
+
+.review-post {
+  border: 2px solid #CCCCCC;
+  border-radius: 10px;
+  margin-top: 20px;
+  background-color: #fffffe;
+
+}
+
+.address-icon {
+  height: 23px;
+  width: 23px;
+}
+
+.addresss {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+
+.description {
+  margin: 10px 0 20px;
+}
+
+.star-container {
+  margin-right: 30px;
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.star {
+  color: #3da9fc;
+}
+
+.empty-star {
+  color: #3da9fc;
+}
+
+.review-post ul {
+ list-style-type: none; 
+ font-size: 18px;
+ color: #222222
+}
+
+.review-heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.review-heading h3{
+  margin: 4px 0 0;
+  font-size: 25px;
+}
+
+
+.review-post .edit-button{
+  background-color: #fffffe;
+  color: #222222;
+  border: none;
+  font-weight: bold;
+  float: right;
+  padding: 5px 6px;
+  border-radius: 50%;
+  margin: 5px 10px;
+  font-size: 20px;
+
+}
+.review-post .edit-button:hover {
+  background-color: #CCCCCC;
+}
+
+.city-icon {
+  margin-right: 5px;
+}
