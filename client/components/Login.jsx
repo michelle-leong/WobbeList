@@ -74,7 +74,7 @@ function Login(props) {
           <div className='form-input'>
             <label htmlFor='username'>Username: </label>
             <input
-              type='username'
+              type='text'
               name='username'
               id='username'
               required

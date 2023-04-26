@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserContext from '../UserContext.jsx';
+
 import Autocomplete from 'react-google-autocomplete';
 
 const HomePage = () => {

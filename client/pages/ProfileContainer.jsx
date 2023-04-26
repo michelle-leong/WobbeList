@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Feed from '../components/Feed.jsx';
 import { useLocation } from 'react-router-dom';
 import EditProfile from '../components/EditProfile.jsx';
@@ -15,7 +15,6 @@ const ProfileContainer = () => {
     activeButton: 'Activities',
     feedList: [],
   });
-  const id = user._id;
 
   const [open, setOpen] = useState(false);
 
@@ -60,7 +59,7 @@ const ProfileContainer = () => {
   const fetchUserFeed = () => {
     axios
       .get(
-        `http://localhost:3000/api/review/user/${id}/type/${state.activeButton}`
+        `http://localhost:3000/api/review/user/${user._id}/type/${state.activeButton}`
       )
       .then((res) => {
         setState({ ...state, feedList: res.data });
@@ -80,15 +79,15 @@ const ProfileContainer = () => {
             id='profile-picture'
             src={ProfileStock}
           />
-          <h2>{user.username}</h2>
+          <h2>{user ? user.username : null}</h2>
         </div>
         <ul>
           <li>
             <img height='25px' width='25px' src={BuildingPic} />
-            {user.favorite_city}
+            {user ? user.favorite_city : null}
           </li>
           <li>Bio: </li>
-          {user.description}
+          {user ? user.description : null}
         </ul>
       </div>
       {open ? (

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import EditReview from './EditReview.jsx';
 import axios from 'axios';
 import EditPic from '../../public/edit.svg';
+import TrashPic from '../../public/delete.png';
 import CityPic from '../../public/location.svg';
 import BuildingPic from '../../public/building.svg';
 import UserContext from '../UserContext.jsx';
@@ -31,12 +32,13 @@ const Review = ({
   const [inputName, setInputName] = useState(locationName);
   const [inputCity, setInputCity] = useState(city);
   const [inputAddress, setInputAddress] = useState(address);
-  const handleClick = () => {
-    setOpenEdit(true);
-  };
 
   const handleChange = (e) => {
     setInputsReview({ ...inputsReview, [e.target.name]: e.target.value });
+  };
+
+  const handleDelete = () => {
+    axios.delete(`/api/`);
   };
 
   const handleSubmit = () => {
@@ -62,9 +64,14 @@ const Review = ({
     <div className='review-post'>
       {/* only allow edits to reviews if in profile page */}
       {windowLocation.includes('user/profile') && (
-        <button className='edit-button' onClick={() => handleClick()}>
-          <img src={EditPic} width='30px' height='30px' />
-        </button>
+        <div>
+          <button className='edit-button' onClick={handleDelete}>
+            <img src={TrashPic} width='30px' height='30px' />
+          </button>
+          <button className='edit-button' onClick={() => setOpenEdit(true)}>
+            <img src={EditPic} width='30px' height='30px' />
+          </button>
+        </div>
       )}
       <ul className='review-info'>
         <li className='review-heading'>

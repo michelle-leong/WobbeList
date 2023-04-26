@@ -9,7 +9,8 @@ import NotFound from './NotFound.jsx';
 import UserContext from '../UserContext.jsx';
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const refreshUser = JSON.parse(sessionStorage.getItem('user'));
+  const [user, setUser] = useState(refreshUser);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

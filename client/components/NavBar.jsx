@@ -5,15 +5,11 @@ import UserContext from '../UserContext.jsx';
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
 
-  const refreshUser = JSON.parse(sessionStorage.getItem('user'));
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user && !refreshUser) {
+    if (!user) {
       navigate('/');
-    } else if (refreshUser) {
-      setUser(refreshUser);
     }
   }, []);
 
