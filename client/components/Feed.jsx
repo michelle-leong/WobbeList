@@ -34,6 +34,7 @@ const Feed = ({
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  //combine review object
   const reviewObj = {
     user_id: user._id,
     city: city,
@@ -57,6 +58,7 @@ const Feed = ({
     setCity('');
     axios.post('/api/review/', reviewObj).then((res) => {
       const data = res.data;
+      //update feed list only if on that tab / location
       if (data.city === location && data.review_type === activeButton)
         fetchFeed();
       else if (
@@ -112,9 +114,11 @@ const Feed = ({
     <div className='feed-container'>
       <div id='feed-header'>
         <h2>{location}</h2>
-        <button id='new-review' onClick={() => setOpen(true)}>
-          New Review
-        </button>
+        <div id='feed-header-button'>
+          <button id='new-review' onClick={() => setOpen(true)}>
+            New Review
+          </button>
+        </div>
       </div>
       <div id='button-container'>
         <button

@@ -41,6 +41,7 @@ const Review = ({
     axios.delete(`/api/`);
   };
 
+  //submit function for updating a review
   const handleSubmit = () => {
     setOpenEdit(false);
     axios
@@ -53,7 +54,7 @@ const Review = ({
         address: inputAddress,
         comments: inputsReview.comments,
       })
-      .then((res) => {
+      .then(() => {
         if (inputsReview.review_type === activeButton) {
           fetchFeed();
         }
@@ -65,9 +66,6 @@ const Review = ({
       {/* only allow edits to reviews if in profile page */}
       {windowLocation.includes('user/profile') && (
         <div>
-          <button className='edit-button' onClick={handleDelete}>
-            <img src={TrashPic} width='30px' height='30px' />
-          </button>
           <button className='edit-button' onClick={() => setOpenEdit(true)}>
             <img src={EditPic} width='30px' height='30px' />
           </button>

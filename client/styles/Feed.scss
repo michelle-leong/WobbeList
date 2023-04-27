@@ -36,14 +36,32 @@
   h2 {
     font-size: 50px;
   }
+}
 
+#feed-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+
+#new-review {
+  color: #fffffe;
+  border: none;
+  border-radius: 10px;
+  background-color: #3da9fc;
+  border: 1px solid #3da9fc;
+  font-size: 18px;
+  height: 35px;
+  width: 130px;
+  cursor: pointer;
 }
 
 #landmark {
   margin: 0 20px;
 }
-
-
 
 #feed-page {
   background-color: #d8eefe;
